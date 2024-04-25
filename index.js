@@ -1,12 +1,13 @@
 // VARIABLES AND SECRETS
 import { _APIKEY } from "./env.js";
-import { _URL } from "./env.js";
 
+const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
 
 // Animations
 AOS.init();
 
+// eviter action du formulaire
 document.addEventListener("submit", (e) => {
   e.preventDefault();
 });
@@ -83,6 +84,7 @@ function getOneMovie(movieId) {
 }
 window.getOneMovie = getOneMovie;
 
+// affichage 1 film dans le modal popup
 function displayMovie(movie) {
   document.getElementById("movieModalLabel").innerText = movie.Title;
   document.getElementById("movieModalPoster").src = movie.Poster;
@@ -99,6 +101,7 @@ function displayMovie(movie) {
   details.innerHTML += liDetails("Ratings", movie.imdbRating + "/10");
 }
 
+// liste des détails du film
 function liDetails(key, value) {
   return `<li class="list-group-item"><strong>${key} :</strong> ${value}</li>`;
 }
