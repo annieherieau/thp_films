@@ -1,9 +1,10 @@
 // VARIABLES AND SECRETS
 import { _APIKEY } from "./env.js";
+window.process = process;
 
 const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
-const _apikey = _APIKEY !== '' ? _APIKEY : "github-pages";
+const _apikey = _APIKEY !== '' ? _APIKEY : "3407e470";
 // Animations
 AOS.init();
 
