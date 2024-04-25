@@ -3,7 +3,10 @@ import { _APIKEY } from "./env.js";
 import { _URL } from "./env.js";
 
 const NO_POSTER = "images/placeholder.png";
-//
+
+// Animations
+AOS.init();
+
 document.addEventListener("submit", (e) => {
   e.preventDefault();
 });
@@ -36,7 +39,7 @@ function displayMovieCards(response) {
 
   const movies = response.Search;
   for (const movie of movies) {
-    div.innerHTML += `<div class="card bg-white mb-3 w-100 shadow-sm">
+    div.innerHTML += `<div class="card bg-white mb-3 shadow-sm" data-aos="fade-up">
     <div class="card-body d-flex">
       <img class="card-poster" src="${
         movie.Poster === "N/A" ? NO_POSTER : movie.Poster

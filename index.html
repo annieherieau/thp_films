@@ -10,8 +10,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/cerulean/bootstrap.min.css"
     />
-
+    <!-- CSS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- App CSS -->
     <link rel="stylesheet" href="css/styles.css" />
+
     <title>Films</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
@@ -47,8 +50,8 @@
         </div>
       </nav>
     </header>
-    <main class="container p-5">
-      <h1 class="text-primary mb-5">Accueil</h1>
+    <main class="container p-3">
+      <h1 class="text-primary my-5">Accueil</h1>
       <!-- CHAMP DE RECHERCHE -->
       <form>
       <fieldset class="bg-light p-4 rounded border shadow">
@@ -79,26 +82,32 @@
         aria-labelledby="movieModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog mx-5" role="document">
-          <div class="modal-content d-flex p-2">
-            <div class="d-flex justify-content-between">
-              <img id="movieModalPoster" class="modal-poster rounded" src="" />
+        <div class="modal-dialog m-auto" role="document">
+          
+          <div class="modal-content p-2">
+            <div class="d-flex"><div class="w-100"></div>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button></div>
+            
+            <div class="modal-content2 d-flex">
+              <div class="modal-poster">
+                <img id="movieModalPoster" class="rounded" src="" />
+              </div>
               <div class="modal-body">
                 <h1
                   class="modal-title fs-5 border-bottom mb-3"
                   id="movieModalLabel"
                 >
-                  Modal title
+                  Movie title
                 </h1>
                 <p id="synopsis" class="mb-3"></p>
                 <ul id="details"></ul>
               </div>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              
             </div>
           </div>
         </div>
@@ -126,6 +135,8 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <!-- Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module" src="index.js"></script>
   </body>
 </html>
