@@ -2,16 +2,21 @@
 import { _APIKEY } from "./env.js";
 import { _URL } from "./env.js";
 
+const NO_POSTER = "images/placeholder.png";
 //
-let RESPONSE_LIST;
-let MOVIE;
+document.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
 
 // Recherche Open Movie Database
 const getMovies = () => {
+  displayError("");
   let searchInput = document
     .getElementById("searchInput")
     .value.replace(" ", "%20");
-  if (searchInput) {
+  if (searchInput.length < 3 && searchInput.length > 0) {
+    displayError("3 characters minimum");
+  } else {
     const url = `${_URL}/?s=${searchInput}&apikey=${_APIKEY}`;
     getResquest(url);
   }
@@ -33,12 +38,16 @@ function displayMovieCards(response) {
   for (const movie of movies) {
     div.innerHTML += `<div class="card bg-white mb-3 w-100 shadow-sm">
     <div class="card-body d-flex">
-      <img class="card-poster" src="${movie.Poster ==='N/A' ? '' : movie.Poster}">
+      <img class="card-poster" src="${
+        movie.Poster === "N/A" ? NO_POSTER : movie.Poster
+      }">
       <div class="p-3 w-100 h-100 d-flex flex-column justify-content-around">
         <h4 class="card-title">${movie.Title}</h4>
         <p class="card-text">${movie.Type} - ${movie.Year}</p>
-        <button id="${movie.imdbID}" onclick="getOneMovie('${movie.imdbID}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#movieModal">
-          Launch demo modal
+        <button id="${movie.imdbID}" onclick="getOneMovie('${
+      movie.imdbID
+    }')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#movieModal">
+          Read more
         </button>
       </div>
     </div>
