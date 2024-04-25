@@ -3,10 +3,7 @@ import { _APIKEY } from "./env.js";
 
 const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
-if (_APIKEY === "") {
-  _APIKEY = 'test';
-  alert(_APIKEY);
-}
+const _apikey = _APIKEY === '' ? _APIKEY : 'test';
 // Animations
 AOS.init();
 
@@ -24,7 +21,7 @@ const getMovies = () => {
   if (searchInput.length < 3 && searchInput.length > 0) {
     displayError("3 characters minimum");
   } else {
-    const url = `${_URL}/?s=${searchInput}&apikey=${_APIKEY}`;
+    const url = `${_URL}/?s=${searchInput}&apikey=${_apikey}`;
     getResquest(url);
   }
 };
@@ -82,7 +79,7 @@ function getResquest(url) {
 
 // requete pour Movie by ID
 function getOneMovie(movieId) {
-  const url = `${_URL}/?i=${movieId}&plot=full&apikey=${_APIKEY}`;
+  const url = `${_URL}/?i=${movieId}&plot=full&apikey=${_apikey}`;
   getResquest(url);
 }
 window.getOneMovie = getOneMovie;
