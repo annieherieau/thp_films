@@ -3,7 +3,7 @@ import { _APIKEY } from "./env.js";
 
 const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
-const _apikey = _APIKEY !== '' ? _APIKEY : ${{ secrets._OMBD_APIKEY }};
+const _apikey = _APIKEY !== '' ? _APIKEY : process.env._OMBD_APIKEY;
 // Animations
 AOS.init();
 
