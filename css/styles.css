@@ -1,0 +1,15 @@
+.card {
+  overflow: hidden;
+}
+.card-body {
+  padding: 0;
+  height: 180px;
+}
+.card-poster {
+  height: 1;
+  width: auto;
+}
+
+.modal-dialog{
+  max-width: none;
+}
