@@ -1,6 +1,5 @@
 // VARIABLES AND SECRETS
 import { _APIKEY } from "./env.js";
-window.process = process;
 
 const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
