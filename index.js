@@ -3,7 +3,10 @@ import { _APIKEY } from "./env.js";
 
 const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
-
+if (!_APIKEY) {
+  _APIKEY = "test";
+  alert(_APIKEY);
+}
 // Animations
 AOS.init();
 
