@@ -51,7 +51,7 @@
       </nav>
     </header>
     <main class="container p-3">
-      <h1 class="text-primary my-5">Accueil</h1>
+      <h1 class="text-primary my-5">Films</h1>
       <!-- CHAMP DE RECHERCHE -->
       <form>
       <fieldset class="bg-light p-4 rounded border shadow">
@@ -93,20 +93,8 @@
                 aria-label="Close"
               ></button></div>
             
-            <div class="modal-content2 d-flex">
-              <div class="modal-poster">
-                <img id="movieModalPoster" class="rounded" src="" />
-              </div>
-              <div class="modal-body">
-                <h1
-                  class="modal-title fs-5 border-bottom mb-3"
-                  id="movieModalLabel"
-                >
-                  Movie title
-                </h1>
-                <p id="synopsis" class="mb-3"></p>
-                <ul id="details"></ul>
-              </div>
+            <div id="displayMovie" class="modal-dynamic d-flex">
+              <!-- généré par dysplayMovie() -->
               
             </div>
           </div>
@@ -138,5 +126,6 @@
     <!-- Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module" src="index.js"></script>
+    
   </body>
 </html>

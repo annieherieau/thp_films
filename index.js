@@ -1,9 +1,7 @@
 // VARIABLES AND SECRETS
 import { _APIKEY } from "./env.js";
 
-const _URL = "https://www.omdbapi.com";
 const NO_POSTER = "images/placeholder.png";
-const _apikey = _APIKEY !== '' ? _APIKEY : "3407e470";
 // Animations
 AOS.init();
 
@@ -12,25 +10,35 @@ document.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
+// Construction de l'URL
+function getUrl(params) {
+  let url = `https://www.omdbapi.com/?&apikey=${_APIKEY}`;
+  for (const [key, value] of Object.entries(params)) {
+    url += `&${key}=${value}`;
+  }
+  return url;
+}
+
 // Recherche Open Movie Database
 const getMovies = () => {
-  displayError("");
+  displayError();
+  document.getElementById("movies").innerHTML = "";
   let searchInput = document
     .getElementById("searchInput")
     .value.replace(" ", "%20");
-  if (searchInput.length < 3 && searchInput.length > 0) {
+  if (searchInput.length < 3) {
     displayError("3 characters minimum");
   } else {
-    const url = `${_URL}/?s=${searchInput}&apikey=${_apikey}`;
-    getResquest(url);
+    let params = { s: searchInput };
+    getResquest(getUrl(params));
   }
 };
 window.getMovies = getMovies;
 
 // afficher les erreurs
-function displayError(error) {
+function displayError(error = "") {
   const div = document.getElementById("error");
-  div.innerHTML = `<p class='text-warning'>${error}</p>`;
+  div.innerHTML = error ? `<p class='text-warning'>Error: ${error}</p>` : "";
 }
 
 // créer la liste des films
@@ -66,10 +74,14 @@ function getResquest(url) {
       return response.json(); // Décodage JSON de la réponse (notez bien le `return` ici)
     })
     .then((response) => {
-      if (response.Search) {
-        displayMovieCards(response);
+      if (response.Response === "True") {
+        if (response.Search) {
+          displayMovieCards(response);
+        } else {
+          displayMovie(response);
+        }
       } else {
-        displayMovie(response);
+        displayError(response.Error);
       }
     })
     .catch((error) => {
@@ -79,29 +91,41 @@ function getResquest(url) {
 
 // requete pour Movie by ID
 function getOneMovie(movieId) {
-  const url = `${_URL}/?i=${movieId}&plot=full&apikey=${_apikey}`;
-  getResquest(url);
+  let params = { i: movieId };
+  getResquest(getUrl(params));
 }
 window.getOneMovie = getOneMovie;
 
 // affichage 1 film dans le modal popup
 function displayMovie(movie) {
-  document.getElementById("movieModalLabel").innerText = movie.Title;
-  document.getElementById("movieModalPoster").src = movie.Poster;
-  document.getElementById(
-    "synopsis"
-  ).innerHTML = `<strong>${movie.Released}</strong></br>
-  ${movie.Plot}`;
-  let details = document.getElementById("details");
-  details.innerHTML = "";
-  details.innerHTML += liDetails("Genre", movie.Genre);
-  details.innerHTML += liDetails("Director", movie.Director);
-  details.innerHTML += liDetails("Actors", movie.Actors);
-  details.innerHTML += liDetails("Awards", movie.Awards);
-  details.innerHTML += liDetails("Ratings", movie.imdbRating + "/10");
+  let div = document.getElementById("displayMovie");
+  div.innerHTML = "";
+  // poster
+  if (movie.Poster != "N/A") {
+    div.innerHTML += `<div class="modal-poster">
+    <img id="movieModalPoster" class="rounded" src="${movie.Poster}" />
+  </div>`;
+  }
+
+  div.innerHTML += `<div class="modal-body">
+    <h1 class="modal-title fs-5 border-bottom mb-3">${movie.Title}</h1>
+      <p><strong>${movie.Released !='N/A' ? movie.Released : ''}</strong></br>
+      ${movie.Plot !='N/A' ? movie.Plot : ''}</p>
+      <ul >
+      ${liDetails("Genre", movie.Genre)}
+      ${liDetails("Director", movie.Director)}
+      ${liDetails("Actors", movie.Actors)}
+      ${liDetails("Awards", movie.Awards)}
+      ${liDetails("Ratings", movie.imdbRating + "/10")}
+      </ul>
+              </div>`;
 }
 
 // liste des détails du film
 function liDetails(key, value) {
-  return `<li class="list-group-item"><strong>${key} :</strong> ${value}</li>`;
+  if (value != "N/A") {
+    return `<li class="list-group-item"><strong>${key} :</strong> ${value}</li>`;
+  } else {
+    return "";
+  }
 }
