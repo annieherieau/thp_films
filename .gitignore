@@ -5,3 +5,5 @@ env.js
 # Parcel related files
 dist/
 .cache/
+
+node_modules
