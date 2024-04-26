@@ -1,2 +1,7 @@
+# dotenv environment variables file
+.env
 env.js
-node_modules
+
+# Parcel related files
+dist/
+.cache/
