@@ -1,6 +1,4 @@
 // VARIABLES AND SECRETS
-import { _APIKEY } from "./env.js";
-
 const NO_POSTER = "images/placeholder.png";
 // Animations
 AOS.init();
@@ -12,10 +10,7 @@ document.addEventListener("submit", (e) => {
 
 // Construction de l'URL
 function getUrl(params) {
-  let url = `https://www.omdbapi.com/?&apikey=${_APIKEY}`;
-  for (const [key, value] of Object.entries(params)) {
-    url += `&${key}=${value}`;
-  }
+  let url = `https://www.omdbapi.com/?${params.join("&")}&apikey=${process.env._APIKEY}`;
   return url;
 }
 
@@ -29,7 +24,7 @@ const getMovies = () => {
   if (searchInput.length < 3) {
     displayError("3 characters minimum");
   } else {
-    let params = { s: searchInput };
+    let params = [`s=${searchInput}`];
     getResquest(getUrl(params));
   }
 };
@@ -91,7 +86,7 @@ function getResquest(url) {
 
 // requete pour Movie by ID
 function getOneMovie(movieId) {
-  let params = { i: movieId };
+  let params = [`i=${movieId}`];
   getResquest(getUrl(params));
 }
 window.getOneMovie = getOneMovie;
@@ -109,8 +104,8 @@ function displayMovie(movie) {
 
   div.innerHTML += `<div class="modal-body">
     <h1 class="modal-title fs-5 border-bottom mb-3">${movie.Title}</h1>
-      <p><strong>${movie.Released !='N/A' ? movie.Released : ''}</strong></br>
-      ${movie.Plot !='N/A' ? movie.Plot : ''}</p>
+      <p><strong>${movie.Released != "N/A" ? movie.Released : ""}</strong></br>
+      ${movie.Plot != "N/A" ? movie.Plot : ""}</p>
       <ul >
       ${liDetails("Genre", movie.Genre)}
       ${liDetails("Director", movie.Director)}
