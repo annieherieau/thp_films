@@ -1,3 +1,13 @@
 {
-  "type":"module"
+  "type": "module",
+  "name": "thp_films",
+  "description": "Afficher une liste de films avec l'API Open Movie Database https://www.omdbapi.com/: - recherche par nom du film (mt clé) - liste des film (titre, poster, année, bouton CTA lire plus) - animation scroll - au CTA: Popup(modal) avec résumé du film",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
